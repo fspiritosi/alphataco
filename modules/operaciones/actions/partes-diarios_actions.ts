@@ -1,0 +1,1 @@
+// Acciones para el submódulo de partes diarios de operaciones

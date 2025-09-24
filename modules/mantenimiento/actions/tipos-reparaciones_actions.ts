@@ -1,0 +1,1 @@
+// Acciones para el submódulo de tipos de reparaciones de mantenimiento
