@@ -12,6 +12,10 @@ import {
   PieChart,
   Settings2,
   SquareTerminal,
+  Building2,
+  Users2,
+  Truck,
+  
 } from "lucide-react"
 
 import { NavMain } from "@/shared/features/sidebar/compnentes/nav-main"
@@ -54,7 +58,7 @@ const data = {
     {
       title: "Empresa",
       url: "/dashboard/empresa",
-      icon: SquareTerminal,
+      icon: Building2,
       isActive: true,
       items: [
         {
@@ -68,20 +72,43 @@ const data = {
       ],
     },
     {
-      title: "Models",
+      title: "Empleados",
       url: "#",
-      icon: Bot,
+      icon: Users2,
       items: [
         {
-          title: "Genesis",
+          title: "General",
           url: "#",
         },
         {
-          title: "Explorer",
+          title: "Diagramas",
           url: "#",
         },
         {
           title: "Quantum",
+          url: "#",
+        },
+      ],
+    },
+    {
+      title: "Equpos",
+      url: "#",
+      icon: Truck,
+      items: [
+        {
+          title: "Introduction",
+          url: "#",
+        },
+        {
+          title: "Get Started",
+          url: "#",
+        },
+        {
+          title: "Tutorials",
+          url: "#",
+        },
+        {
+          title: "Changelog",
           url: "#",
         },
       ],
@@ -110,7 +137,7 @@ const data = {
       ],
     },
     {
-      title: "Settings",
+      title: "Configuración",
       url: "#",
       icon: Settings2,
       items: [
