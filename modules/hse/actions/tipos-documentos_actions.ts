@@ -1,0 +1,1 @@
+// Acciones para el submódulo de tipos de documentos de HSE
