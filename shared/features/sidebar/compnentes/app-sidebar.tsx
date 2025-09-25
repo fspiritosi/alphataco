@@ -18,179 +18,36 @@ import {
   
 } from "lucide-react"
 
-import { NavMain } from "@/shared/features/sidebar/compnentes/nav-main"
-import { NavProjects } from "@/shared/features/sidebar/compnentes/nav-projects"
-import { NavUser } from "@/shared/features/sidebar/compnentes/nav-user"
-import { TeamSwitcher } from "@/shared/features/sidebar/compnentes/team-switcher"
+import { NavMain } from "@/shared/features/sidebar/components/nav-main"
+
+import { NavUser } from "@/shared/features/sidebar/components/nav-user"
+import { TeamSwitcher } from "@/shared/features/sidebar/components/team-switcher"
 import {
   Sidebar,
   SidebarContent,
   SidebarFooter,
   SidebarHeader,
   SidebarRail,
-} from "@/components/ui/sidebar"
+} from "@/shared/components/ui/sidebar"
+import { getCurrentUser } from "@/shared/actions/user-actions"
 
-// This is sample data.
-const data = {
-  user: {
-    name: "shadcn",
-    email: "m@example.com",
-    avatar: "/avatars/shadcn.jpg",
-  },
-  teams: [
-    {
-      name: "Acme Inc",
-      logo: GalleryVerticalEnd,
-      plan: "Enterprise",
-    },
-    {
-      name: "Acme Corp.",
-      logo: AudioWaveform,
-      plan: "Startup",
-    },
-    {
-      name: "Evil Corp.",
-      logo: Command,
-      plan: "Free",
-    },
-  ],
-  navMain: [
-    {
-      title: "Empresa",
-      url: "/dashboard/empresa",
-      icon: Building2,
-      isActive: true,
-      items: [
-        {
-          title: "General",
-          url: "/dashboard/empresa",
-        },
-        {
-          title: "Usuarios",
-          url: "/dashboard/empresa/usuarios",
-        },
-      ],
-    },
-    {
-      title: "Empleados",
-      url: "#",
-      icon: Users2,
-      items: [
-        {
-          title: "General",
-          url: "#",
-        },
-        {
-          title: "Diagramas",
-          url: "#",
-        },
-        {
-          title: "Quantum",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Equpos",
-      url: "#",
-      icon: Truck,
-      items: [
-        {
-          title: "Introduction",
-          url: "#",
-        },
-        {
-          title: "Get Started",
-          url: "#",
-        },
-        {
-          title: "Tutorials",
-          url: "#",
-        },
-        {
-          title: "Changelog",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Documentation",
-      url: "#",
-      icon: BookOpen,
-      items: [
-        {
-          title: "Introduction",
-          url: "#",
-        },
-        {
-          title: "Get Started",
-          url: "#",
-        },
-        {
-          title: "Tutorials",
-          url: "#",
-        },
-        {
-          title: "Changelog",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Configuración",
-      url: "#",
-      icon: Settings2,
-      items: [
-        {
-          title: "General",
-          url: "#",
-        },
-        {
-          title: "Team",
-          url: "#",
-        },
-        {
-          title: "Billing",
-          url: "#",
-        },
-        {
-          title: "Limits",
-          url: "#",
-        },
-      ],
-    },
-  ],
-  projects: [
-    {
-      name: "Design Engineering",
-      url: "#",
-      icon: Frame,
-    },
-    {
-      name: "Sales & Marketing",
-      url: "#",
-      icon: PieChart,
-    },
-    {
-      name: "Travel",
-      url: "#",
-      icon: Map,
-    },
-  ],
-}
 
-export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+
+
+export async function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const user = await getCurrentUser();
+
   return (
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
-        <TeamSwitcher teams={data.teams} />
+        <TeamSwitcher />
       </SidebarHeader>
       <SidebarContent>
-        <NavMain items={data.navMain} />
-        <NavProjects projects={data.projects} />
+        <NavMain />
+        {/* <NavProjects /> */}
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={data.user} />
+        <NavUser user={user} />
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>
