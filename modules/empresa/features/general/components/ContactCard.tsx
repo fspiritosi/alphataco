@@ -1,6 +1,7 @@
-import { Card, CardHeader, CardContent } from "@/components/ui/card"
+import { Card, CardHeader, CardContent } from "@/shared/components/ui/card"
+import { getCompanyDataType } from "@/modules/empresa/actions/general_actions";
 
-export const ContactCard = ({ companyData }: { companyData: any }) => {
+export const ContactCard = ({ companyData }: { companyData: getCompanyDataType }) => {
     return (
       <Card>
         <CardHeader>
@@ -14,7 +15,7 @@ export const ContactCard = ({ companyData }: { companyData: any }) => {
             </div>
             <div>
               <label className="text-sm font-semibold dark:text-blue-300">Teléfono</label>
-              <p className="font-medium text-foreground">{companyData.telefono}</p>
+              <p className="font-medium text-foreground">{companyData.contact_phone}</p>
             </div>
           </div>
           <div className="flex items-center space-x-3">
@@ -23,7 +24,7 @@ export const ContactCard = ({ companyData }: { companyData: any }) => {
             </div>
             <div>
               <label className="text-sm font-semibold dark:text-blue-300">Email</label>
-              <p className="font-medium ">{companyData.email}</p>
+              <p className="font-medium ">{companyData.contact_email}</p>
             </div>
           </div>
         </div>

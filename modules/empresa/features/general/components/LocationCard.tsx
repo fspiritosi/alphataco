@@ -1,12 +1,13 @@
 'use client'
-import { Card, CardHeader, CardContent } from "@/components/ui/card"
+import { Card, CardHeader, CardContent } from "@/shared/components/ui/card"
 import React from "react";
+import { getCompanyDataType } from "@/modules/empresa/actions/general_actions";
 
-export const LocationCard = ({ companyData }: { companyData: any }) => {
+export const LocationCard = ({ companyData }: { companyData: getCompanyDataType }) => {
     const [showMap, setShowMap] = React.useState(false);
     
     // Coordenadas aproximadas de Rincón de Los Sauces, Neuquén, Argentina
-    const mapUrl = `https://www.google.com/maps/embed/v1/place?key=YOUR_API_KEY&q=${encodeURIComponent(companyData.direccion + ', ' + companyData.ciudad + ', ' + companyData.pais)}`;
+    const mapUrl = `https://www.google.com/maps/embed/v1/place?key=YOUR_API_KEY&q=${encodeURIComponent(companyData.address + ', ' + companyData.cities.name + ', ' + companyData.country)}`;
     
     return (
       <Card>
@@ -31,15 +32,15 @@ export const LocationCard = ({ companyData }: { companyData: any }) => {
         <div className="space-y-4">
           <div>
             <label className="text-sm font-semibold text-foreground dark:text-blue-300">Dirección</label>
-            <p className="font-medium text-foreground">{companyData.direccion}</p>
+            <p className="font-medium text-foreground">{companyData.address}</p>
           </div>
           <div>
             <label className="text-sm font-semibold text-foreground dark:text-blue-300">Ciudad</label>
-            <p className="font-medium text-foreground">{companyData.ciudad}</p>
+            <p className="font-medium text-foreground">{companyData.cities.name}</p>
           </div>
           <div>
             <label className="text-sm font-semibold text-foreground dark:text-blue-300">País</label>
-            <p className="font-medium text-foreground">{companyData.pais}</p>
+            <p className="font-medium text-foreground capitalize">{companyData.country}</p>
           </div>
           
           {showMap && (
@@ -50,8 +51,8 @@ export const LocationCard = ({ companyData }: { companyData: any }) => {
                   <div className="text-center">
                     <div className="text-4xl mb-2">🗺️</div>
                     <p className="text-sm text-foreground dark:text-blue-300 font-medium">Google Maps</p>
-                    <p className="text-xs text-foreground dark:text-blue-300">{companyData.direccion}</p>
-                    <p className="text-xs text-foreground dark:text-blue-300">{companyData.ciudad}, {companyData.pais}</p>
+                    <p className="text-xs text-foreground dark:text-blue-300">{companyData.address}</p>
+                    <p className="text-xs text-foreground dark:text-blue-300 capitalize">{companyData.cities.name}, {companyData.country}</p>
                   </div>
                 </div>
                 {/* 

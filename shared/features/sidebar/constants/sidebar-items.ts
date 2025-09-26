@@ -50,7 +50,7 @@ export const sidebarItems = {
     },
     {
       title: "Empresa",
-      url: "/dashboard/empresa",
+      url: "/dashboard/empresa/general",
       icon: Building2,
       items: [
         {
@@ -89,7 +89,7 @@ export const sidebarItems = {
     },
     {
       title: "Empleados",
-      url: "/dashboard/empleados",
+      url: "/dashboard/empleados/lista",
       icon: Users,
       items: [
         {
@@ -116,7 +116,7 @@ export const sidebarItems = {
     },
     {
       title: "Equipos",
-      url: "/dashboard/equipos",
+      url: "/dashboard/equipos/lista",
       icon: Settings,
       items: [
         {
@@ -139,7 +139,7 @@ export const sidebarItems = {
     },
     {
       title: "Documentación",
-      url: "/dashboard/documentacion",
+      url: "/dashboard/documentacion/empleados",
       icon: FileText,
       items: [
         {
@@ -162,7 +162,7 @@ export const sidebarItems = {
     },
     {
       title: "Mantenimiento",
-      url: "/dashboard/mantenimiento",
+      url: "/dashboard/mantenimiento/solicitudes-activas",
       icon: Wrench,
       items: [
         {
@@ -181,7 +181,7 @@ export const sidebarItems = {
     },
     {
       title: "Formularios",
-      url: "/dashboard/formularios",
+      url: "/dashboard/formularios/tipos-checklist",
       icon: ClipboardList,
       items: [
         {
@@ -192,7 +192,7 @@ export const sidebarItems = {
     },
     {
       title: "Operaciones",
-      url: "/dashboard/operaciones",
+      url: "/dashboard/operaciones/partes-diarios",
       icon: Calendar,
       items: [
         {
@@ -207,7 +207,7 @@ export const sidebarItems = {
     },
     {
       title: "HSE",
-      url: "/dashboard/hse",
+      url: "/dashboard/hse/capacitaciones",
       icon: Shield,
       items: [
         {

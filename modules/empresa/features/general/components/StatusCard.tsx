@@ -1,6 +1,7 @@
-import { Card, CardHeader, CardContent } from "@/components/ui/card"
+import { Card, CardHeader, CardContent } from "@/shared/components/ui/card"
+import { getCompanyDataType } from "@/modules/empresa/actions/general_actions";
 
-export const StatusCard = ({ companyData }: { companyData: any }) => {
+export const StatusCard = ({ companyData }: { companyData: getCompanyDataType }) => {
     return (
       <Card >
         <CardHeader>
@@ -11,12 +12,12 @@ export const StatusCard = ({ companyData }: { companyData: any }) => {
           <div className="flex items-center justify-between">
             <span className="text-sm font-medium dark:text-blue-300">Estado de la empresa</span>
             <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
-              Activa
+              {companyData.is_active ? "Activa" : "Inactiva"}
             </span>
           </div>
           <div className="flex items-center justify-between">
-            <span className="text-sm font-medium dark:text-blue-300">Última actualización</span>
-            <span className="text-sm">Hace 2 días</span>
+            <span className="text-sm font-medium dark:text-blue-300">Período Fiscal Activo</span>
+            <span className="text-sm">01/01/2025 - 31/12/2025</span>
           </div>
         </div>
         </CardContent>
