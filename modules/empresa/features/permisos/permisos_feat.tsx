@@ -206,11 +206,11 @@ export function PermissionsTable() {
 
   const getModuleIcon = (module: Permission["module"]) => {
     const variants = {
-      Usuarios: "bg-chart-2/20 text-chart-2 border-chart-2/30",
-      Reportes: "bg-chart-4/20 text-chart-4 border-chart-4/30",
-      Sistema: "bg-destructive/20 text-destructive border-destructive/30",
-      Empleados: "bg-indigo-200 text-indigo-600 border-indigo-300/30",
-      Equipos: "bg-emerald-200 text-emerald-600 border-emerald-300/30",
+      Usuarios: "bg-chart-2/20 text-chart-2 border-chart-2/30 dark:bg-chart-2/20 dark:text-chart-2 dark:border-chart-2/30",
+      Reportes: "bg-chart-4/20 text-chart-4 border-chart-4/30 dark:bg-chart-4/20 dark:text-chart-4 dark:border-chart-4/30",
+      Sistema: "bg-destructive/20 text-destructive border-destructive/30 dark:bg-destructive/20 dark:text-destructive dark:border-destructive/30",
+      Empleados: "bg-indigo-200 text-indigo-600 border-indigo-300/30 dark:bg-indigo-800 dark:text-indigo-200 dark:border-indigo-700",
+      Equipos: "bg-emerald-200 text-emerald-600 border-emerald-300/30 dark:bg-emerald-800 dark:text-emerald-200 dark:border-emerald-700",
       
     }
     return (

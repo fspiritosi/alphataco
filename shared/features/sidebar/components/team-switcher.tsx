@@ -20,10 +20,12 @@ import {
 } from "@/shared/components/ui/sidebar"
 import Image from "next/image"
 import { getTeamsType } from "@/shared/actions/user-actions"
+import { useRouter } from "next/navigation"
 
 export function TeamSwitcher({ teams }: { teams: getTeamsType }) {
   const { isMobile } = useSidebar()
   const [activeTeam, setActiveTeam] = React.useState(teams![0])
+  const router = useRouter()
 
   if (!activeTeam) {
     return null
@@ -55,7 +57,7 @@ export function TeamSwitcher({ teams }: { teams: getTeamsType }) {
             sideOffset={4}
           >
             <DropdownMenuLabel className="text-muted-foreground text-xs">
-              Teams
+              Empresas
             </DropdownMenuLabel>
             {teams?.map((team, index) => (
               <DropdownMenuItem
@@ -71,11 +73,13 @@ export function TeamSwitcher({ teams }: { teams: getTeamsType }) {
               </DropdownMenuItem>
             ))}
             <DropdownMenuSeparator />
-            <DropdownMenuItem className="gap-2 p-2">
+            <DropdownMenuItem className="gap-2 p-2" onClick={() => router.push("/dashboard/empresa/nueva")}>
+              
               <div className="flex size-6 items-center justify-center rounded-md border bg-transparent">
                 <Plus className="size-4" />
               </div>
-              <div className="text-muted-foreground font-medium">Add team</div>
+              <div className="text-muted-foreground font-medium">Nueva Empresa</div>
+              
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
