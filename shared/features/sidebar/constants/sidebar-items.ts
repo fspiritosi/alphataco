@@ -15,7 +15,17 @@ import {
   Shield,
   Users,
   Wrench,
+  CircleDollarSign,
+  Factory,
+  
 } from "lucide-react";
+
+
+
+
+
+
+
 
 // This is sample data.
 export const sidebarItems = {
@@ -66,20 +76,12 @@ export const sidebarItems = {
           url: "/dashboard/empresa/usuarios",
         },
         {
-          title: "Clientes",
-          url: "/dashboard/empresa/clientes",
-        },
-        {
-          title: "Contactos",
-          url: "/dashboard/empresa/contactos",
-        },
-        {
           title: "Convenios colectivos de trabajo",
           url: "/dashboard/empresa/convenios-colectivos",
         },
         {
-          title: "Servicios",
-          url: "/dashboard/empresa/servicios",
+          title: "Permisos",
+          url: "/dashboard/empresa/permisos",
         },
         {
           title: "Portal de Empleados",
@@ -134,6 +136,29 @@ export const sidebarItems = {
         {
           title: "Mantenimiento",
           url: "/dashboard/equipos/mantenimiento",
+        },
+      ],
+    },
+    {
+      title: "Comercial",
+      url: "/dashboard/comercial/clientes",
+      icon: CircleDollarSign,
+      items: [
+        {
+          title: "Clientes",
+          url: "/dashboard/comercial/clientes",
+        },
+        {
+          title: "Contactos",
+          url: "/dashboard/comercial/contactos",
+        },
+        {
+          title: "Contratos",
+          url: "/dashboard/comercial/contratos",
+        },
+        {
+          title: "Ventas",
+          url: "/dashboard/comercial/ventas",
         },
       ],
     },
@@ -193,7 +218,7 @@ export const sidebarItems = {
     {
       title: "Operaciones",
       url: "/dashboard/operaciones/partes-diarios",
-      icon: Calendar,
+      icon: Factory,
       items: [
         {
           title: "Partes diarios",

@@ -18,12 +18,12 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/shared/components/ui/sidebar"
-import { sidebarItems } from "@/shared/features/sidebar/constants/sidebar-items"
+import Image from "next/image"
+import { getTeamsType } from "@/shared/actions/user-actions"
 
-export function TeamSwitcher() {
-  const teams = sidebarItems.teams
+export function TeamSwitcher({ teams }: { teams: getTeamsType }) {
   const { isMobile } = useSidebar()
-  const [activeTeam, setActiveTeam] = React.useState(teams[0])
+  const [activeTeam, setActiveTeam] = React.useState(teams![0])
 
   if (!activeTeam) {
     return null
@@ -39,11 +39,11 @@ export function TeamSwitcher() {
               className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
             >
               <div className="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
-                <activeTeam.logo className="size-4" />
+                <Image src={activeTeam.company?.company_logo || ""} alt={activeTeam.company?.company_name || ""} width={24} height={24} />
               </div>
               <div className="grid flex-1 text-left text-sm leading-tight">
-                <span className="truncate font-medium">{activeTeam.name}</span>
-                <span className="truncate text-xs">{activeTeam.plan}</span>
+                <span className="truncate font-medium">{activeTeam.company?.company_name}</span>
+
               </div>
               <ChevronsUpDown className="ml-auto" />
             </SidebarMenuButton>
@@ -57,16 +57,16 @@ export function TeamSwitcher() {
             <DropdownMenuLabel className="text-muted-foreground text-xs">
               Teams
             </DropdownMenuLabel>
-            {teams.map((team, index) => (
+            {teams?.map((team, index) => (
               <DropdownMenuItem
-                key={team.name}
+                key={team.company?.company_name}
                 onClick={() => setActiveTeam(team)}
                 className="gap-2 p-2"
               >
                 <div className="flex size-6 items-center justify-center rounded-md border">
-                  <team.logo className="size-3.5 shrink-0" />
+                  <Image src={team.company?.company_logo || ""} alt={team.company?.company_name || ""} width={24} height={24} />
                 </div>
-                {team.name}
+                {team.company?.company_name}
                 <DropdownMenuShortcut>⌘{index + 1}</DropdownMenuShortcut>
               </DropdownMenuItem>
             ))}
