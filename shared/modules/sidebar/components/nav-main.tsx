@@ -1,5 +1,3 @@
-"use client"
-
 import { ChevronRight } from "lucide-react"
 
 import {
@@ -33,7 +31,7 @@ export function NavMain() {
               <SidebarMenuItem key={item.title}>
                 <SidebarMenuButton asChild tooltip={item.title}>
                   <Link href={item.url} className="flex items-center gap-2 text-xs hover:underline hover:text-blue-300">
-                    {item.icon && <item.icon className="w-4 h-4 hover:text-blue-300"  />}
+                    {item.icon && <item.icon className="w-4 h-4 hover:text-blue-300" />}
                     <span>{item.title}</span>
                   </Link>
                 </SidebarMenuButton>
@@ -53,8 +51,8 @@ export function NavMain() {
                 <CollapsibleTrigger asChild>
                   <SidebarMenuButton tooltip={item.title}>
                     <Link href={item.url} className="flex items-center gap-2 text-xs hover:underline hover:text-blue-300">
-                    {item.icon && <item.icon className="w-4 h-4 hover:text-blue-300" />}
-                    <span>{item.title}</span>
+                      {item.icon && <item.icon className="w-4 h-4 hover:text-blue-300" />}
+                      <span>{item.title}</span>
                     </Link>
                     <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
                   </SidebarMenuButton>

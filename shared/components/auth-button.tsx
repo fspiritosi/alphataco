@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Button } from "@/shared/components/ui/button";
-import { getCurrentUser } from "../actions/user-actions";
+import { getCurrentUser } from "../actions/auth-actions";
 
 export async function AuthButton() {
   const user = await getCurrentUser();

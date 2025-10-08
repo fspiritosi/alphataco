@@ -18,7 +18,7 @@ import {
 
 import { usePathname } from "next/navigation"
 import { Fragment } from "react"
-import { sidebarItems } from "../sidebar/constants/sidebar-items"
+import { sidebarItems } from "../../../sidebar/constants/sidebar-items"
 
 export const BreadcrumbFeat = () => {
   const pathname = usePathname()
@@ -41,7 +41,7 @@ export const BreadcrumbFeat = () => {
         return urlSegment === segment || item.title.toLowerCase() === segment.toLowerCase()
       }
     )
-    
+
     return navItem?.items || []
   }
 
@@ -62,7 +62,7 @@ export const BreadcrumbFeat = () => {
         {pathSegments.map((segment, index) => {
           const submenuItems = getSubmenuItems(segment)
           const isLastItem = index === pathSegments.length - 1
-          
+
           return (
             <Fragment key={segment}>
               <BreadcrumbItem className="hidden md:block capitalize">

@@ -1,5 +1,5 @@
-import { AppSidebar } from "@/shared/features/sidebar/AppSidebarFeat"
-import { BreadcrumbFeat } from "@/shared/features/breadcrumb/BreadcrumbFeat"
+import { AppSidebar } from "@/shared/modules/sidebar/AppSidebarFeat"
+import { BreadcrumbFeat } from "@/shared/modules/navbar/features/breadcrumb/BreadcrumbFeat"
 import { Separator } from "@/shared/components/ui/separator"
 import {
   SidebarInset,

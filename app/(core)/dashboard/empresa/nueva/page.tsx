@@ -11,8 +11,9 @@ import { Label } from "@/shared/components/ui/label"
 import { Textarea } from "@/shared/components/ui/textarea"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/shared/components/ui/select"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/shared/components/ui/card"
-import { ArrowLeft, Building2, Upload, X } from "lucide-react"
+import { Building2, Upload, X } from "lucide-react"
 import HeaderModule from "@/shared/components/header-module"
+import Image from "next/image"
 
 const countries = [
   "Argentina",
@@ -129,15 +130,9 @@ export default function NewCompanyPage() {
   }
 
   return (
-    <main className="min-h-screen bg-background p-6 md:p-10">
+    <main className="min-h-screen bg-background">
       <div className="mx-auto">
         <div className="mb-8">
-          <Link href="/dashboard">
-            <Button variant="ghost" className="mb-4 -ml-2">
-              <ArrowLeft className="mr-2 h-4 w-4" />
-              Volver
-            </Button>
-          </Link>
           <div className="flex items-center gap-3">
             <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10">
               <Building2 className="h-6 w-6 text-primary" />
@@ -163,7 +158,7 @@ export default function NewCompanyPage() {
                 <div className="flex items-start gap-4">
                   {logoPreview ? (
                     <div className="relative">
-                      <img
+                      <Image
                         src={logoPreview || "/placeholder.svg"}
                         alt="Logo preview"
                         className="h-24 w-24 rounded-lg border border-border object-cover"
