@@ -1,6 +1,5 @@
 import { createClientServer } from "@/lib/supabase/server";
-import { headers } from "next/headers";
-import { redirect } from "next/navigation";
+
 
 export const getCurrentUser = async () => {
   const supabase = await createClientServer();
@@ -29,16 +28,6 @@ export const getTeams = async () => {
     .from("company_users")
     .select("company(name, logo,id)")
     .eq("user_id", user!.sub);
-
-  if (!profile || profile?.length === 0) {
-    const headersList = await headers();
-    const pathname =
-      headersList.get("next-url") || headersList.get("referer") || "";
-    const fullUrl = `${pathname}`;
-    if (!fullUrl || !fullUrl?.includes("/dashboard/empresa/nueva")) {
-      return redirect("/dashboard/empresa/nueva");
-    }
-  }
 
   return { profile, error, user };
 };

@@ -1,17 +1,11 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
-import { hasEnvVars } from "../utils";
+import { createClientServer } from "./server";
 
 export async function updateSession(request: NextRequest) {
   let supabaseResponse = NextResponse.next({
     request,
   });
-
-  // If the env vars are not set, skip middleware check. You can remove this
-  // once you setup the project.
-  if (!hasEnvVars) {
-    return supabaseResponse;
-  }
 
   // With Fluid compute, don't put this client in a global environment
   // variable. Always create a new one on each request.
@@ -52,6 +46,25 @@ export async function updateSession(request: NextRequest) {
     const url = request.nextUrl.clone();
     url.pathname = "/login";
     return NextResponse.redirect(url);
+  }
+
+  // Check if user has companies when accessing dashboard
+  if (user && request.nextUrl.pathname.startsWith("/dashboard")) {
+    const supabaseServer = await createClientServer();
+
+    const { count } = await supabaseServer
+      .from("company_users")
+      .select("*", { count: "exact", head: true })
+      .eq("user_id", user.sub);
+
+    if (
+      count === 0 &&
+      !request.nextUrl.pathname.includes("/dashboard/empresa/nueva")
+    ) {
+      const url = request.nextUrl.clone();
+      url.pathname = "/dashboard/empresa/nueva";
+      return NextResponse.redirect(url);
+    }
   }
 
   // IMPORTANT: You *must* return the supabaseResponse object as it is.

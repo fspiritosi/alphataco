@@ -1,5 +1,5 @@
 import { NavMain } from "@/shared/modules/sidebar/components/nav-main"
-import { NavUser } from "@/shared/modules/sidebar/components/nav-user"
+import { NavUser } from "@/shared/modules/sidebar/features/nav-user/nav-user"
 import { TeamSwitcher } from "@/shared/modules/sidebar/features/company-switcher/team_switcher_feat"
 import {
   Sidebar,
@@ -8,15 +8,13 @@ import {
   SidebarHeader,
   SidebarRail,
 } from "@/shared/components/ui/sidebar"
-import { getUserData } from "@/shared/actions/auth-actions"
 import { Suspense } from "react"
-import { NavUserSkeleton } from "./skeletons/nav-user-skeleton"
-import { NavUserError } from "./skeletons/nav-user-error"
+
 import { TeamSwitcherSkeleton } from "./features/company-switcher/fallbacks/team-switcher-skeleton"
+import { NavUserSkeleton } from "./features/nav-user/fallbacks/nav-user-skeleton"
 
 
 export async function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-  const { error, user } = await getUserData();
 
   return (
     <Sidebar collapsible="icon" {...props}>
@@ -30,7 +28,7 @@ export async function AppSidebar({ ...props }: React.ComponentProps<typeof Sideb
       </SidebarContent>
       <SidebarFooter>
         <Suspense fallback={<NavUserSkeleton />}>
-          {error ? <NavUserError /> : <NavUser user={user} />}
+          <NavUser />
         </Suspense>
       </SidebarFooter>
       <SidebarRail />
