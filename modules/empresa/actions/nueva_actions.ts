@@ -1,0 +1,60 @@
+"use server";
+
+import { createClientServer } from "@/lib/supabase/server";
+import { revalidatePath } from "next/cache";
+import {
+  companyFormSchema,
+  type CompanyFormData,
+} from "../features/nueva/schemas/companySchema";
+
+export async function createCompanyAction(formData: CompanyFormData, logoUrl?: string) {
+  try {
+    // Validar los datos con Zod (sin el logo que ahora se maneja por separado)
+    const validatedData = companyFormSchema.parse(formData);
+    const { logo: _, ...dataWithoutLogo } = validatedData;
+
+    const supabase = await createClientServer();
+
+    // Preparar los datos para insertar
+    const companyData = {
+      name: dataWithoutLogo.name,
+      description: dataWithoutLogo.description,
+      website: dataWithoutLogo.website,
+      email: dataWithoutLogo.email,
+      phone: dataWithoutLogo.phone,
+      address: dataWithoutLogo.address,
+      country: dataWithoutLogo.country,
+      cuit: dataWithoutLogo.cuit,
+      is_active: true,
+      logo: logoUrl || null, // Usar la URL del logo subida
+    };
+
+    // Insertar la empresa
+    console.log("Insertando empresa con datos:", companyData);
+    const { data: company, error: insertError } = await supabase
+      .from("company")
+      .insert(companyData);
+
+    if (insertError) {
+      console.error("Error al crear empresa:", insertError);
+      return { success: false, error: "Error al crear la empresa" };
+    }
+
+    // Revalidar la caché
+    revalidatePath("/dashboard");
+
+    return { success: true, data: company };
+  } catch (error) {
+    console.error("Error en createCompanyAction:", error);
+
+    if (error instanceof Error) {
+      return { success: false, error: error.message };
+    }
+
+    return { success: false, error: "Error desconocido al crear la empresa" };
+  }
+}
+
+export type CreateCompanyActionType = Awaited<
+  ReturnType<typeof createCompanyAction>
+>;

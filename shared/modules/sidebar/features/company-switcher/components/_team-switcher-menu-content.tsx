@@ -25,8 +25,20 @@ function TeamSwitcherMenuContent({ teams }: { teams: getTeamsType['profile'] }) 
           onClick={() => console.log(team)}
           className="gap-2 p-2"
         >
-          <div className="flex size-6 items-center justify-center rounded-md border">
-            <Image src={team.company?.logo || ""} alt={team.company?.name || ""} width={24} height={24} />
+          <div className="relative size-8 overflow-hidden rounded-md">
+            {team.company?.logo ? (
+              <Image 
+                src={team.company.logo} 
+                alt={team.company.name || ""} 
+                width={32} 
+                height={32}
+                className="size-full object-contain p-1"
+              />
+            ) : (
+              <div className="flex size-full items-center justify-center rounded-md border bg-muted text-sm font-semibold">
+                {team.company?.name?.charAt(0).toUpperCase() || 'E'}
+              </div>
+            )}
           </div>
           {team.company?.name}
           <DropdownMenuShortcut>⌘{index + 1}</DropdownMenuShortcut>
