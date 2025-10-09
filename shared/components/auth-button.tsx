@@ -3,7 +3,7 @@ import { Button } from "@/shared/components/ui/button";
 import { getCurrentUser } from "../actions/auth-actions";
 
 export async function AuthButton() {
-  const user = await getCurrentUser();
+  const { user } = await getCurrentUser();
 
   return user ? (
     <div className="flex items-center gap-4">

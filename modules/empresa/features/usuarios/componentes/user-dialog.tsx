@@ -14,14 +14,14 @@ import {
 } from "@/shared/components/ui/dialog"
 import { Input } from "@/shared/components/ui/input"
 import { Label } from "@/shared/components/ui/label"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/shared/components/ui/select.tsx"
-import type { User } from "../usuarios_feat.tsx"
+import type { User } from "../usuarios_feat"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/shared/components/ui/select"
 
 type UserDialogProps = {
   open: boolean
-  onOpenChange: (open: boolean) => void
+  onOpenChange: (_open: boolean) => void
   user: User | null
-  onSave: (user: Omit<User, "id">) => void
+  onSave: (_user: Omit<User, "id">) => void
 }
 
 export function UserDialog({ open, onOpenChange, user, onSave }: UserDialogProps) {

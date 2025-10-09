@@ -20,16 +20,16 @@ import type { Permission } from "../permisos_feat"
 
 type PermissionDialogProps = {
   open: boolean
-  onOpenChange: (open: boolean) => void
+  onOpenChange: (_open: boolean) => void
   permission: Permission | null
-  onSave: (permission: Omit<Permission, "id">) => void
+  onSave: (_permission: Omit<Permission, "id">) => void
 }
 
 export function PermissionDialog({ open, onOpenChange, permission, onSave }: PermissionDialogProps) {
   const [formData, setFormData] = useState({
     name: "",
     description: "",
-    module: "",
+    module: "" as Permission["module"],
     category: "read" as Permission["category"],
     createdDate: new Date().toISOString().split("T")[0],
   })
@@ -47,8 +47,8 @@ export function PermissionDialog({ open, onOpenChange, permission, onSave }: Per
       setFormData({
         name: "",
         description: "",
-        module: "",
-        category: "read",
+        module: "" as Permission["module"],
+        category: "read" as Permission["category"],
         createdDate: new Date().toISOString().split("T")[0],
       })
     }
@@ -107,7 +107,7 @@ export function PermissionDialog({ open, onOpenChange, permission, onSave }: Per
               <Input
                 id="module"
                 value={formData.module}
-                onChange={(e) => setFormData({ ...formData, module: e.target.value })}
+                onChange={(e) => setFormData({ ...formData, module: e.target.value as Permission["module"] })}
                 placeholder="Ej: Usuarios, Reportes, Sistema"
                 required
                 className="bg-background border-border"

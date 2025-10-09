@@ -1,5 +1,8 @@
-import { createClientServer } from "@/lib/supabase/server";
-
+"use server";
+import {
+  createAdminClientServer,
+  createClientServer,
+} from "@/lib/supabase/server";
 
 export const getCurrentUser = async () => {
   const supabase = await createClientServer();
@@ -22,12 +25,13 @@ export type getUserDataType = Awaited<ReturnType<typeof getUserData>>;
 
 export const getTeams = async () => {
   const supabase = await createClientServer();
-  const { user } = await getUserData();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
 
   const { data: profile, error } = await supabase
     .from("company_users")
-    .select("company(name, logo,id)")
-    .eq("user_id", user!.sub);
+    .select("company(name, logo,id)");
 
   return { profile, error, user };
 };
@@ -48,3 +52,12 @@ export const checkUserCompany = async () => {
   return { count, error };
 };
 export type checkUserCompanyType = Awaited<ReturnType<typeof checkUserCompany>>;
+
+export const updateUserCurrentCompany = async (companyId: string) => {
+  console.log(companyId, "companyIdcompanyId");
+  const supabase = await createAdminClientServer();
+  //TODO: agregar el ROL
+  await supabase.auth.updateUser({
+    data: { current_company: companyId },
+  });
+};

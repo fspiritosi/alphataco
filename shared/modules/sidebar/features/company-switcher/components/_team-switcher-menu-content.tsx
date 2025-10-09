@@ -1,5 +1,5 @@
 'use client'
-import { getTeamsType } from "@/shared/actions/auth-actions"
+import { getTeamsType, updateUserCurrentCompany } from "@/shared/actions/auth-actions"
 import { DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuShortcut } from "@/shared/components/ui/dropdown-menu"
 import { useSidebar } from "@/shared/components/ui/sidebar"
 import { Plus } from "lucide-react"
@@ -9,6 +9,11 @@ import { useRouter } from "next/navigation"
 function TeamSwitcherMenuContent({ teams }: { teams: getTeamsType['profile'] }) {
   const { isMobile } = useSidebar()
   const router = useRouter()
+  const handleCompanyChange = async (companyId: string) => {
+    console.log(companyId)
+    await updateUserCurrentCompany(companyId);
+    window.location.reload();
+  }
   return (
     <DropdownMenuContent
       className="w-(--radix-dropdown-menu-trigger-width) min-w-56 rounded-lg"
@@ -22,15 +27,15 @@ function TeamSwitcherMenuContent({ teams }: { teams: getTeamsType['profile'] }) 
       {teams?.map((team, index) => (
         <DropdownMenuItem
           key={team.company?.name}
-          onClick={() => console.log(team)}
+          onClick={() => handleCompanyChange(team.company?.id || "")}
           className="gap-2 p-2"
         >
           <div className="relative size-8 overflow-hidden rounded-md">
             {team.company?.logo ? (
-              <Image 
-                src={team.company.logo} 
-                alt={team.company.name || ""} 
-                width={32} 
+              <Image
+                src={team.company.logo}
+                alt={team.company.name || ""}
+                width={32}
                 height={32}
                 className="size-full object-contain p-1"
               />

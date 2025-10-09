@@ -7,7 +7,10 @@ import {
   type CompanyFormData,
 } from "../features/nueva/schemas/companySchema";
 
-export async function createCompanyAction(formData: CompanyFormData, logoUrl?: string) {
+export async function createCompanyAction(
+  formData: CompanyFormData,
+  logoUrl?: string
+) {
   try {
     // Validar los datos con Zod (sin el logo que ahora se maneja por separado)
     const validatedData = companyFormSchema.parse(formData);
@@ -25,6 +28,8 @@ export async function createCompanyAction(formData: CompanyFormData, logoUrl?: s
       address: dataWithoutLogo.address,
       country: dataWithoutLogo.country,
       cuit: dataWithoutLogo.cuit,
+      province_id: dataWithoutLogo.province_id,
+      city_id: dataWithoutLogo.city_id,
       is_active: true,
       logo: logoUrl || null, // Usar la URL del logo subida
     };
@@ -55,6 +60,53 @@ export async function createCompanyAction(formData: CompanyFormData, logoUrl?: s
   }
 }
 
-export type CreateCompanyActionType = Awaited<
-  ReturnType<typeof createCompanyAction>
+export async function getProvincesAction() {
+  try {
+    const supabase = await createClientServer();
+
+    const { data, error } = await supabase
+      .from("provinces")
+      .select("id, name")
+      .order("name", { ascending: true });
+
+    if (error) {
+      console.error("Error al obtener provincias:", error);
+      return { provinces: [], error: error.message };
+    }
+
+    return { provinces: data || [], error: null };
+  } catch (error) {
+    console.error("Error en getProvincesAction:", error);
+    return { provinces: [], error: "Error al obtener provincias" };
+  }
+}
+
+export type GetProvincesActionType = Awaited<
+  ReturnType<typeof getProvincesAction>
+>;
+
+export async function getCitiesByProvinceAction(provinceId: string) {
+  try {
+    const supabase = await createClientServer();
+
+    const { data, error } = await supabase
+      .from("cities")
+      .select("id, name")
+      .eq("province_id", provinceId)
+      .order("name", { ascending: true });
+
+    if (error) {
+      console.error("Error al obtener ciudades:", error);
+      return { cities: [], error: error.message };
+    }
+
+    return { cities: data || [], error: null };
+  } catch (error) {
+    console.error("Error en getCitiesByProvinceAction:", error);
+    return { cities: [], error: "Error al obtener ciudades" };
+  }
+}
+
+export type GetCitiesByProvinceActionType = Awaited<
+  ReturnType<typeof getCitiesByProvinceAction>
 >;

@@ -14,9 +14,39 @@ export type Database = {
   }
   public: {
     Tables: {
+      cities: {
+        Row: {
+          created_at: string
+          id: string
+          name: string
+          province_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          name: string
+          province_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          name?: string
+          province_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "cities_province_uuid_fkey"
+            columns: ["province_id"]
+            isOneToOne: false
+            referencedRelation: "provinces"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       company: {
         Row: {
           address: string
+          city_id: string | null
           country: string
           cuit: string
           description: string
@@ -27,10 +57,12 @@ export type Database = {
           name: string
           owner_id: string | null
           phone: string
+          province_id: string | null
           website: string | null
         }
         Insert: {
           address: string
+          city_id?: string | null
           country: string
           cuit: string
           description: string
@@ -41,10 +73,12 @@ export type Database = {
           name: string
           owner_id?: string | null
           phone: string
+          province_id?: string | null
           website?: string | null
         }
         Update: {
           address?: string
+          city_id?: string | null
           country?: string
           cuit?: string
           description?: string
@@ -55,36 +89,52 @@ export type Database = {
           name?: string
           owner_id?: string | null
           phone?: string
+          province_id?: string | null
           website?: string | null
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "company_city_id_fkey"
+            columns: ["city_id"]
+            isOneToOne: false
+            referencedRelation: "cities"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "company_province_id_fkey"
+            columns: ["province_id"]
+            isOneToOne: false
+            referencedRelation: "provinces"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       company_users: {
         Row: {
           company_id: string | null
           created_at: string
           id: string
-          role: string
+          role_id: string
           user_id: string | null
         }
         Insert: {
           company_id?: string | null
           created_at?: string
           id?: string
-          role: string
+          role_id: string
           user_id?: string | null
         }
         Update: {
           company_id?: string | null
           created_at?: string
           id?: string
-          role?: string
+          role_id?: string
           user_id?: string | null
         }
         Relationships: [
           {
-            foreignKeyName: "company_users_role_fkey"
-            columns: ["role"]
+            foreignKeyName: "company_users_role_id_fkey"
+            columns: ["role_id"]
             isOneToOne: false
             referencedRelation: "roles"
             referencedColumns: ["id"]
@@ -97,6 +147,24 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      countries: {
+        Row: {
+          created_at: string
+          id: string
+          name: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          name: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          name?: string
+        }
+        Relationships: []
       }
       modules: {
         Row: {
@@ -151,23 +219,41 @@ export type Database = {
           },
         ]
       }
-      roles: {
+      provinces: {
         Row: {
           created_at: string
           id: string
-          is_active: boolean | null
           name: string
         }
         Insert: {
           created_at?: string
           id?: string
-          is_active?: boolean | null
           name: string
         }
         Update: {
           created_at?: string
           id?: string
-          is_active?: boolean | null
+          name?: string
+        }
+        Relationships: []
+      }
+      roles: {
+        Row: {
+          created_at: string
+          description: string | null
+          id: string
+          name: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          name: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          id?: string
           name?: string
         }
         Relationships: []
@@ -177,7 +263,14 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      user_can_access_company: {
+        Args: { company_uuid: string }
+        Returns: boolean
+      }
+      user_is_company_owner: {
+        Args: { company_uuid: string }
+        Returns: boolean
+      }
     }
     Enums: {
       permission_category: "create" | "update" | "read" | "delete"

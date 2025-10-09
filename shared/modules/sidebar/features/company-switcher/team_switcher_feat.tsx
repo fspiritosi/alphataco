@@ -17,8 +17,10 @@ import TeamSwitcherMenuContent from "./components/_team-switcher-menu-content"
 
 export async function TeamSwitcher() {
   const { profile, error: teamsError, user } = await getTeams();
-  const activeTeam = profile?.find((team) => team.company?.id === user?.company_id) || profile?.[0]
+  const activeTeam = profile?.find((team) => team.company?.id === user?.user_metadata?.current_company) || profile?.[0]
+
   if (teamsError) return <TeamSwitcherError />
+
   if (profile?.length === 0 || !activeTeam) return <TeamSwitcherEmpty />
 
   return (

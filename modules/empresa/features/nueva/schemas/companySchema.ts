@@ -36,6 +36,14 @@ export const companyFormSchema = z.object({
     )
     .or(z.string().min(1, "El CUIT es requerido")),
 
+  province_id: z
+    .string()
+    .min(1, "La provincia es requerida"),
+
+  city_id: z
+    .string()
+    .min(1, "La ciudad es requerida"),
+
   logo: z
     .instanceof(File)
     .optional()
@@ -60,7 +68,9 @@ export const defaultCompanyFormValues: CompanyFormData = {
   phone: "",
   website: "",
   address: "",
-  country: "",
+  country: "Argentina",
   cuit: "",
+  province_id: "",
+  city_id: "",
   logo: undefined,
 };

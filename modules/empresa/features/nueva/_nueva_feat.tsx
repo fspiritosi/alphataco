@@ -1,5 +1,5 @@
 'use client'
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
 import { useForm } from "react-hook-form"
@@ -13,8 +13,9 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Building2, Upload, X } from "lucide-react"
 import HeaderModule from "@/shared/components/header-module"
 import { companyFormSchema, type CompanyFormData, defaultCompanyFormValues } from "./schemas/companySchema"
-import { createCompanyAction } from "../../actions/nueva_actions"
+import { createCompanyAction, getProvincesAction } from "../../actions/nueva_actions"
 import { useCompanyImage } from "./hooks/useCompanyImage"
+import { LocationSelect } from "./components/LocationSelect"
 
 const countries = [
     "Argentina",
@@ -49,6 +50,18 @@ function NuevaFeat() {
     })
 
     const [isSubmitting, setIsSubmitting] = useState(false)
+    const [provinces, setProvinces] = useState<Array<{ id: string; name: string }>>([])
+
+    // Cargar provincias al montar el componente
+    useEffect(() => {
+        const loadProvinces = async () => {
+            const result = await getProvincesAction()
+            if (result.provinces) {
+                setProvinces(result.provinces)
+            }
+        }
+        loadProvinces()
+    }, [])
 
     // Hook para manejar la imagen de la empresa
     const {
@@ -297,17 +310,16 @@ function NuevaFeat() {
                                     )}
                                 />
 
-                                {/* Country and CUIT */}
-                                <div className="grid gap-6 md:grid-cols-2">
+                                <div className="grid gap-6 grid-cols-1 md:grid-cols-3">
                                     <FormField
                                         control={form.control}
                                         name="country"
                                         render={({ field }) => (
-                                            <FormItem>
+                                            <FormItem className="flex flex-col">
                                                 <FormLabel>País *</FormLabel>
                                                 <Select onValueChange={field.onChange} defaultValue={field.value}>
                                                     <FormControl>
-                                                        <SelectTrigger>
+                                                        <SelectTrigger className="w-full">
                                                             <SelectValue placeholder="Selecciona un país" />
                                                         </SelectTrigger>
                                                     </FormControl>
@@ -323,24 +335,47 @@ function NuevaFeat() {
                                             </FormItem>
                                         )}
                                     />
+                                    <LocationSelect
+                                        form={form}
+                                        fieldName="province_id"
+                                        label="Provincia *"
+                                        placeholder="Selecciona una provincia"
+                                        options={provinces}
+                                        onChange={() => {
+                                            // Reset city when province changes
+                                            form.setValue('city_id', '')
+                                        }}
+                                    />
 
-                                    <FormField
-                                        control={form.control}
-                                        name="cuit"
-                                        render={({ field }) => (
-                                            <FormItem>
-                                                <FormLabel>CUIT *</FormLabel>
-                                                <FormControl>
-                                                    <Input
-                                                        placeholder="XX-XXXXXXXX-X"
-                                                        {...field}
-                                                    />
-                                                </FormControl>
-                                                <FormMessage />
-                                            </FormItem>
-                                        )}
+                                    <LocationSelect
+                                        form={form}
+                                        fieldName="city_id"
+                                        label="Ciudad *"
+                                        placeholder="Selecciona una ciudad"
+                                        options={[]}
+                                        dependsOn="province_id"
+                                        dependsOnValue={form.watch('province_id')}
+                                        disabled={!form.watch('province_id')}
                                     />
                                 </div>
+
+                                {/* CUIT */}
+                                <FormField
+                                    control={form.control}
+                                    name="cuit"
+                                    render={({ field }) => (
+                                        <FormItem>
+                                            <FormLabel>CUIT *</FormLabel>
+                                            <FormControl>
+                                                <Input
+                                                    placeholder="XX-XXXXXXXX-X"
+                                                    {...field}
+                                                />
+                                            </FormControl>
+                                            <FormMessage />
+                                        </FormItem>
+                                    )}
+                                />
                             </CardContent>
                         </Card>
 
