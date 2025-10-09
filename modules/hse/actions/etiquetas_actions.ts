@@ -1,0 +1,1 @@
+// Acciones para el submódulo de etiquetas de HSE

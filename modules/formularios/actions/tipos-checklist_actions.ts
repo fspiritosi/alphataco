@@ -1,0 +1,1 @@
+// Acciones para el submódulo de tipos de checklist de formularios
