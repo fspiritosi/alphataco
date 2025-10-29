@@ -46,7 +46,7 @@ export type Database = {
       company: {
         Row: {
           address: string
-          city_id: string | null
+          city_id: string
           country: string
           cuit: string
           description: string
@@ -57,12 +57,12 @@ export type Database = {
           name: string
           owner_id: string | null
           phone: string
-          province_id: string | null
+          province_id: string
           website: string | null
         }
         Insert: {
           address: string
-          city_id?: string | null
+          city_id: string
           country: string
           cuit: string
           description: string
@@ -73,12 +73,12 @@ export type Database = {
           name: string
           owner_id?: string | null
           phone: string
-          province_id?: string | null
+          province_id: string
           website?: string | null
         }
         Update: {
           address?: string
-          city_id?: string | null
+          city_id?: string
           country?: string
           cuit?: string
           description?: string
@@ -89,7 +89,7 @@ export type Database = {
           name?: string
           owner_id?: string | null
           phone?: string
-          province_id?: string | null
+          province_id?: string
           website?: string | null
         }
         Relationships: [
@@ -162,6 +162,119 @@ export type Database = {
         Update: {
           created_at?: string
           id?: string
+          name?: string
+        }
+        Relationships: []
+      }
+      emp_contract_type: {
+        Row: {
+          created_at: string
+          description: string | null
+          id: string
+          is_active: boolean
+          name: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          is_active?: boolean
+          name: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          is_active?: boolean
+          name?: string
+        }
+        Relationships: []
+      }
+      emp_diagrams_types: {
+        Row: {
+          active_novelty: string
+          active_working_days: number
+          created_at: string
+          id: string
+          inactive_novelty: string
+          inactive_working_days: number
+          name: string
+        }
+        Insert: {
+          active_novelty: string
+          active_working_days: number
+          created_at?: string
+          id?: string
+          inactive_novelty: string
+          inactive_working_days: number
+          name: string
+        }
+        Update: {
+          active_novelty?: string
+          active_working_days?: number
+          created_at?: string
+          id?: string
+          inactive_novelty?: string
+          inactive_working_days?: number
+          name?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "emp_diagrams_types_active_novelty_fkey"
+            columns: ["active_novelty"]
+            isOneToOne: false
+            referencedRelation: "emp_novelty_type"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      emp_novelty_type: {
+        Row: {
+          color: string
+          created_at: string
+          id: string
+          is_active: boolean
+          name: string
+          short_description: string
+          work_active: boolean
+        }
+        Insert: {
+          color?: string
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          name: string
+          short_description: string
+          work_active?: boolean
+        }
+        Update: {
+          color?: string
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          name?: string
+          short_description?: string
+          work_active?: boolean
+        }
+        Relationships: []
+      }
+      emp_sector_company: {
+        Row: {
+          created_at: string
+          id: string
+          is_active: boolean
+          name: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          name: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          is_active?: boolean
           name?: string
         }
         Relationships: []

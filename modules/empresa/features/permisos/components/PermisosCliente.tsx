@@ -11,7 +11,7 @@ import { PermissionDialog } from "@/modules/empresa/features/permisos/components
 import { DeletePermissionDialog } from "@/modules/empresa/features/permisos/components/delete-permission-dialog"
 import { AssignPermissionsDialog } from "@/modules/empresa/features/permisos/components/assign-permissions-dialog"
 import { Search, Plus, MoreVertical, Pencil, Trash2, Shield, UserPlus } from "lucide-react"
-
+import {getPermissionsType}from "@/modules/empresa/actions/permisos_actions"
 export type Permission = {
   id: string
   name: string
@@ -124,7 +124,7 @@ const initialUserPermissions: UserPermission[] = [
   { userId: "3", userName: "María López", permissionIds: ["1", "5", "6"] },
 ]
 
-export function PermissionsTable() {
+export function PermisosClientes({ permissionsServer }: { permissionsServer: getPermissionsType }) {
   const [permissions, setPermissions] = useState<Permission[]>(initialPermissions)
   const [userPermissions, setUserPermissions] = useState<UserPermission[]>(initialUserPermissions)
   const [searchQuery, setSearchQuery] = useState("")
@@ -132,6 +132,7 @@ export function PermissionsTable() {
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false)
   const [isAssignDialogOpen, setIsAssignDialogOpen] = useState(false)
   const [selectedPermission, setSelectedPermission] = useState<Permission | null>(null)
+
 
   const filteredPermissions = permissions.filter(
     (permission) =>

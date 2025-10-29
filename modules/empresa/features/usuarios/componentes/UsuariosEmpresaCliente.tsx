@@ -11,6 +11,7 @@ import { UserDialog } from "@/modules/empresa/features/usuarios/componentes/user
 import {  DeleteUserDialog } from  "@/modules/empresa/features/usuarios/componentes/delete-user-dialog"
 import { Search, Plus, MoreVertical, Pencil, Trash2, Mail, Building2, Eye } from "lucide-react"
 import { useRouter } from "next/navigation"
+import { getCompanyUsersType } from "@/modules/empresa/actions/usuarios_actions"
 
 export type User = {
   id: string
@@ -70,13 +71,15 @@ const initialUsers: User[] = [
   },
 ]
 
-export function UsuariosEmpresa() {
+export function UsuariosEmpresaCliente({ usersServer }: { usersServer: getCompanyUsersType }) {
   const router = useRouter()
   const [users, setUsers] = useState<User[]>(initialUsers)
   const [searchQuery, setSearchQuery] = useState("")
   const [isDialogOpen, setIsDialogOpen] = useState(false)
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false)
   const [selectedUser, setSelectedUser] = useState<User | null>(null)
+
+  console.log(usersServer, 'usersServer')
 
   const filteredUsers = users.filter(
     (user) =>
@@ -125,6 +128,7 @@ export function UsuariosEmpresa() {
       </Badge>
     )
   }
+
 
   return (
     <>
@@ -264,5 +268,5 @@ export function UsuariosEmpresa() {
 }
 
 
-export default UsuariosEmpresa;
+export default UsuariosEmpresaCliente;
 
