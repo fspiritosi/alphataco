@@ -1,3 +1,4 @@
+'use server'
 import { createClientServer } from "@/lib/supabase/server";
 
 // Acciones para el submódulo de configuración de empleados
@@ -6,11 +7,11 @@ import { createClientServer } from "@/lib/supabase/server";
 export const get_contract_types = async () => {
     const supabase = await createClientServer();
     try {
-        const { data, error } = await supabase.from('emp_contract_type').select('*');
+        const { data, error } = await supabase.from("emp_contract_type").select("*");
         if (error) throw error;
         return data;
     } catch (error) {
-        console.error(error);
+        console.log(error);
         return [];
     }
 }

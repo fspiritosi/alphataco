@@ -114,6 +114,10 @@ export const sidebarItems = {
           title: "Convenios colectivos de trabajo",
           url: "/dashboard/empleados/convenios-colectivos",
         },
+        {
+          title: "Configuración",
+          url: "/dashboard/empleados/configuracion",
+        },
       ],
     },
     {
