@@ -1,5 +1,6 @@
 'use server'
 import { createClientServer } from "@/lib/supabase/server";
+import { revalidatePath } from "next/cache";
 
 // Acciones para el submódulo de configuración de empleados
 // Aquí irían las funciones para listar, crear, actualizar y eliminar tipos de contrato
@@ -21,6 +22,7 @@ export const create_contract_type = async (contract_type: any) => {
     try {
         const { data, error } = await supabase.from('emp_contract_type').insert([contract_type]);
         if (error) throw error;
+        revalidatePath('/dashboard/empleados/configuracion')
         return data;
     } catch (error) {
         console.error(error);
@@ -33,6 +35,7 @@ export const update_contract_type = async (contract_type: any) => {
     try {
         const { data, error } = await supabase.from('emp_contract_type').update(contract_type).eq('id', contract_type.id);
         if (error) throw error;
+        revalidatePath('/dashboard/empleados/configuracion')
         return data;
     } catch (error) {
         console.error(error);
@@ -45,6 +48,7 @@ export const delete_contract_type = async (contract_type_id: string) => {
     try {
         const { data, error } = await supabase.from('emp_contract_type').delete().eq('id', contract_type_id);
         if (error) throw error;
+        revalidatePath('/dashboard/empleados/configuracion')
         return data;
     } catch (error) {
         console.error(error);
