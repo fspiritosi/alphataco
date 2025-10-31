@@ -198,6 +198,7 @@ export type Database = {
           id: string
           inactive_novelty: string
           inactive_working_days: number
+          is_active: boolean
           name: string
         }
         Insert: {
@@ -207,6 +208,7 @@ export type Database = {
           id?: string
           inactive_novelty: string
           inactive_working_days: number
+          is_active?: boolean
           name: string
         }
         Update: {
@@ -216,6 +218,7 @@ export type Database = {
           id?: string
           inactive_novelty?: string
           inactive_working_days?: number
+          is_active?: boolean
           name?: string
         }
         Relationships: [
